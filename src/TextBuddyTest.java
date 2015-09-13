@@ -23,5 +23,10 @@ public class TextBuddyTest {
 	public void testExitAndSave() {
 		fail("Not yet implemented");
 	}
+	@Test
+	public void testSort(){
+		//
+		assertFalse(TextBuddy.sort());
+	}
 
 }
