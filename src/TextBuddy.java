@@ -195,7 +195,11 @@ public class TextBuddy{
 					searchedResults.add(contents.get(i));
 				}
 			}
+			if (searchedResults.isEmpty()){
+				return null;
+			} else {
 			return searchedResults;
+			}
 		}
 	}
 }
