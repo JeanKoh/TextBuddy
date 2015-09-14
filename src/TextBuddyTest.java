@@ -35,11 +35,16 @@ public class TextBuddyTest {
 		//empty string
 		assertEquals(null,TextBuddy.searchKeyword(null));
 		
-		//checking for equals
+		//keyword is equal to content
 		assertTrue(TextBuddy.add(" aaa"));
 		assertTrue(TextBuddy.add(" bbb"));
 		assertEquals("aaa",TextBuddy.searchKeyword("aaa").get(0));
 		assertEquals("bbb",TextBuddy.searchKeyword("bbb").get(0));
+		
+		//keyword is contained in content
+		TextBuddy.clear();
+		assertTrue(TextBuddy.add(" aabb"));
+		assertEquals("aabb",TextBuddy.searchKeyword("aa"));
 	}
 
 }

@@ -190,7 +190,11 @@ public class TextBuddy{
 		if (contents.isEmpty() || key == null){
 			return null;
 		} else {
-			searchedResults.add(contents.get(0));
+			for (int i = 0;i<contents.size();i++){
+				if (contents.get(i).equals(key)){
+					searchedResults.add(contents.get(i));
+				}
+			}
 			return searchedResults;
 		}
 	}
