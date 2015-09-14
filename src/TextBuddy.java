@@ -191,7 +191,7 @@ public class TextBuddy{
 			return null;
 		} else {
 			for (int i = 0;i<contents.size();i++){
-				if (contents.get(i).equals(key)){
+				if (contents.get(i).contains(key)){
 					searchedResults.add(contents.get(i));
 				}
 			}

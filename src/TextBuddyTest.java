@@ -44,7 +44,16 @@ public class TextBuddyTest {
 		//keyword is contained in content
 		TextBuddy.clear();
 		assertTrue(TextBuddy.add(" aabb"));
-		assertEquals("aabb",TextBuddy.searchKeyword("aa"));
+		assertEquals("aabb",TextBuddy.searchKeyword("aa").get(0));
+		
+		//keyword appears more than once
+		assertTrue(TextBuddy.add(" paaple"));
+		assertTrue(TextBuddy.add(" bbb"));
+		assertEquals("aabb", TextBuddy.searchKeyword("aa").get(0));
+		assertEquals("paaple", TextBuddy.searchKeyword("aa").get(1));
+		
+		//keyword doesn't appear in database
+		assertEquals(null,TextBuddy.searchKeyword("paple"));
 	}
 
 }
