@@ -126,10 +126,13 @@ public class TextBuddy{
 	 * 
 	 * @param statement
 	 */
-	public static void add(String statement) {
+	public static boolean add(String statement) {
+		if (statement == null)
+			return false;
 		statement = statement.substring(1,statement.length());
 		CONTENTS.add(statement);
 		System.out.println(String.format(MESSAGE_ADD, FILE_NAME, statement));
+		return true;
 	}
 	
 	/**
