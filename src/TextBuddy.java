@@ -176,12 +176,16 @@ public class TextBuddy{
 		bWriter.close();
 	}
 	
-	public static boolean sort() {
+	public static boolean sortByAlpha() {
 		if (contents.isEmpty()) {
 			return false;
 		} else {
 			Collections.sort(contents);
 			return true;
 		}
+	}
+	
+	public static ArrayList<String> searchKeyword(String key){
+		
 	}
 }
