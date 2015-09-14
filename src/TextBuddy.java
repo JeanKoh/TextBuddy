@@ -187,6 +187,11 @@ public class TextBuddy{
 	
 	public static ArrayList<String> searchKeyword(String key){
 		ArrayList<String> searchedResults = new ArrayList<String>();
-		return null;
+		if (contents.isEmpty() || key == null){
+			return null;
+		} else {
+			searchedResults.add(contents.get(0));
+			return searchedResults;
+		}
 	}
 }

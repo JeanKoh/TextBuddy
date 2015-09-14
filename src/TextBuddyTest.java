@@ -32,10 +32,14 @@ public class TextBuddyTest {
 		//empty contents
 		assertEquals(null,TextBuddy.searchKeyword("aaa"));
 		
-		//checking for equal
-		assertTrue(TextBuddy.add("aaa"));
-		assertEquals("aaa",TextBuddy.searchKeyword("aaa"));
+		//empty string
+		assertEquals(null,TextBuddy.searchKeyword(null));
 		
+		//checking for equals
+		assertTrue(TextBuddy.add(" aaa"));
+		assertTrue(TextBuddy.add(" bbb"));
+		assertEquals("aaa",TextBuddy.searchKeyword("aaa").get(0));
+		assertEquals("bbb",TextBuddy.searchKeyword("bbb").get(0));
 	}
 
 }
