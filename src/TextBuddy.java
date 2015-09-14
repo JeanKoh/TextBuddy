@@ -41,7 +41,7 @@ public class TextBuddy{
 	private static final String MESSAGE_CLEAR = "all content deleted from %1$s";
 
 	//This arraylist will be used to store data for the file
-	private static ArrayList<String> CONTENTS = new ArrayList<String>();
+	private static ArrayList<String> contents = new ArrayList<String>();
 
 	public static void main(String[] args) {
 		printWelcomeMessage(args);
@@ -130,7 +130,7 @@ public class TextBuddy{
 		if (statement == null)
 			return false;
 		statement = statement.substring(1,statement.length());
-		CONTENTS.add(statement);
+		contents.add(statement);
 		System.out.println(String.format(MESSAGE_ADD, FILE_NAME, statement));
 		return true;
 	}
@@ -141,20 +141,23 @@ public class TextBuddy{
 	 * @param num index to be deleted
 	 */
 	public static void delete(int num) {
-		System.out.println(String.format(MESSAGE_DELETED,FILE_NAME,CONTENTS.get(num-1)));
-		CONTENTS.remove(num-1);
+		System.out.println(String.format(MESSAGE_DELETED,FILE_NAME,contents.get(num-1)));
+		contents.remove(num-1);
 	}
 	
-	public static void display() {
-		if (CONTENTS.isEmpty())
+	public static ArrayList<String> display() {
+		ArrayList<String> ans = new ArrayList<String>(); //for testing purpose in jUnit
+		if (contents.isEmpty())
 			System.out.println(String.format(MESSAGE_EMPTY,FILE_NAME));
 		else
-			for (int i = 0; i<CONTENTS.size();i++){
-				System.out.println((i+1)+". "+CONTENTS.get(i));
+			for (int i = 0; i<contents.size();i++){
+				ans.add((i+1)+". "+contents.get(i));
+				System.out.println((i+1)+". "+contents.get(i));
 			}
+		return ans;
 	}
 	public static void clear() {
-		CONTENTS.clear();
+		contents.clear();
 		System.out.println(String.format(MESSAGE_CLEAR,FILE_NAME));
 	}
 	
@@ -167,12 +170,17 @@ public class TextBuddy{
 	public static void exitAndSave(File file)throws IOException{
 		FileWriter writer = new FileWriter(file);
 		BufferedWriter bWriter = new BufferedWriter(writer);
-		for (int i =0;i <CONTENTS.size();i++){
-			bWriter.write((i+1)+". "+CONTENTS.get(i)+"\n");
+		for (int i =0;i <contents.size();i++){
+			bWriter.write((i+1)+". "+contents.get(i)+"\n");
 		}
 		bWriter.close();
 	}
-	public static boolean sort(){
-		return false;
+	
+	public static boolean sort() {
+		if (contents.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
