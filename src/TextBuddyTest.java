@@ -22,6 +22,7 @@ public class TextBuddyTest {
 		assertTrue(TextBuddy.add(" aaa"));
 		assertTrue(TextBuddy.sort());
 		assertEquals("1. aaa", TextBuddy.display().get(0));
+		assertEquals("2. bbb", TextBuddy.display().get(1));
 	}
 
 }

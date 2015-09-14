@@ -180,6 +180,7 @@ public class TextBuddy{
 		if (contents.isEmpty()) {
 			return false;
 		} else {
+			Collections.sort(contents);
 			return true;
 		}
 	}
