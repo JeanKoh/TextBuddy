@@ -26,10 +26,16 @@ public class TextBuddyTest {
 		assertEquals("2. bbb", TextBuddy.display().get(1));
 	}
 	
+	@Test
 	public void testSearchKeyword(){
 		TextBuddy.clear();
 		//empty contents
-		assertEquals("",TextBuddy.searchKeyword("aaa"));
+		assertEquals(null,TextBuddy.searchKeyword("aaa"));
+		
+		//checking for equal
+		assertTrue(TextBuddy.add("aaa"));
+		assertEquals("aaa",TextBuddy.searchKeyword("aaa"));
+		
 	}
 
 }

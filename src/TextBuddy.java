@@ -186,6 +186,7 @@ public class TextBuddy{
 	}
 	
 	public static ArrayList<String> searchKeyword(String key){
-		
+		ArrayList<String> searchedResults = new ArrayList<String>();
+		return null;
 	}
 }
