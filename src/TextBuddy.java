@@ -135,16 +135,17 @@ public class TextBuddy{
 	/**
 	 * this operation adds the string into an array list
 	 * 
-	 * @param statement
+	 * @param statement to be added in
+	 * @return returns 1 is add is successful, else return 0
 	 */
-	public static boolean add(String statement) {
-		if (statement == null){
-			return false;
+	public static int add(String statement) {
+		if (statement == ""){
+			return 0;
 		} else {
 			statement = statement.substring(1,statement.length());
 			contents.add(statement);
 			System.out.println(String.format(MESSAGE_ADD, FILE_NAME, statement));
-			return true;
+			return 1;
 		}
 	}
 	
@@ -198,8 +199,9 @@ public class TextBuddy{
 	 * @param num
 	 */
 	public static void deleteUsingIndex(int num){
-		if (num>contents.size()) {
+		if (num>contents.size()||num<=0) {
 			System.out.println(ERROR_NO_SUCH_INDEX);
+			return;
 		}
 		System.out.println(String.format(MESSAGE_DELETED,FILE_NAME,contents.get(num-1)));
 		contents.remove(num-1);
@@ -241,14 +243,14 @@ public class TextBuddy{
 	/**
 	 * Sorts the current data in alphabetical
 	 * 
-	 * @return returns if method is successful
+	 * @return returns  1 if method is successful, else 0
 	 */
-	public static boolean sortByAlpha() {
+	public static int sortByAlpha() {
 		if (contents.isEmpty()) {
-			return false;
+			return 0;
 		} else {
 			Collections.sort(contents);
-			return true;
+			return 1;
 		}
 	}
 	

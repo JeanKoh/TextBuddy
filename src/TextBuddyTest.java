@@ -7,20 +7,20 @@ public class TextBuddyTest {
 	public void testSort(){
 		TextBuddy.clear();
 		//contents is empty.
-		assertFalse(TextBuddy.sortByAlpha());
+		assertEquals(0,TextBuddy.sortByAlpha());
 		
 		//adding into contents
-		assertTrue(TextBuddy.add(" aaa"));
-		assertTrue(TextBuddy.sortByAlpha());
+		assertEquals(1,TextBuddy.add(" aaa"));
+		assertEquals(1,TextBuddy.sortByAlpha());
 	
 		//checking first item in list
 		assertEquals("1. aaa", TextBuddy.display().get(0));
 		
 		//changing contents
 		TextBuddy.clear();
-		assertTrue(TextBuddy.add(" bbb"));
-		assertTrue(TextBuddy.add(" aaa"));
-		assertTrue(TextBuddy.sortByAlpha());
+		assertEquals(1,TextBuddy.add(" bbb"));
+		assertEquals(1,TextBuddy.add(" aaa"));
+		assertEquals(1,TextBuddy.sortByAlpha());
 		assertEquals("1. aaa", TextBuddy.display().get(0));
 		assertEquals("2. bbb", TextBuddy.display().get(1));
 	}
@@ -35,19 +35,19 @@ public class TextBuddyTest {
 		assertEquals(null,TextBuddy.searchKeyword(null));
 		
 		//keyword is equal to content
-		assertTrue(TextBuddy.add(" aaa"));
-		assertTrue(TextBuddy.add(" bbb"));
+		assertEquals(1,TextBuddy.add(" aaa"));
+		assertEquals(1,TextBuddy.add(" bbb"));
 		assertEquals("aaa",TextBuddy.searchKeyword("aaa").get(0));
 		assertEquals("bbb",TextBuddy.searchKeyword("bbb").get(0));
 		
 		//keyword is contained in content
 		TextBuddy.clear();
-		assertTrue(TextBuddy.add(" aabb"));
+		assertEquals(1,TextBuddy.add(" aabb"));
 		assertEquals("aabb",TextBuddy.searchKeyword("aa").get(0));
 		
 		//keyword appears more than once
-		assertTrue(TextBuddy.add(" paaple"));
-		assertTrue(TextBuddy.add(" bbb"));
+		assertEquals(1,TextBuddy.add(" paaple"));
+		assertEquals(1,TextBuddy.add(" bbb"));
 		assertEquals("aabb", TextBuddy.searchKeyword("aa").get(0));
 		assertEquals("paaple", TextBuddy.searchKeyword("aa").get(1));
 		
