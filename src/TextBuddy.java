@@ -48,6 +48,7 @@ public class TextBuddy{
 	private static final String ERROR_NO_SEARCH_INDEX = "no such index from search display";
 	private static final String ERROR_NO_MATCH = "no keywords input";
 	private static final String ERROR_NO_MATCH_FOUND = "no match";
+	private static final String ERROR_NO_STATEMENT = "no such statement";
 
 	//This arraylist will be used to store data for the file
 	private static ArrayList<String> contents = new ArrayList<String>();
@@ -138,14 +139,14 @@ public class TextBuddy{
 	 * @param statement to be added in
 	 * @return returns 1 is add is successful, else return 0
 	 */
-	public static int add(String statement) {
+	public static void add(String statement) {
 		if (statement == ""){
-			return 0;
+			System.out.println(ERROR_NO_STATEMENT);
+			return;
 		} else {
 			statement = statement.substring(1,statement.length());
 			contents.add(statement);
 			System.out.println(String.format(MESSAGE_ADD, FILE_NAME, statement));
-			return 1;
 		}
 	}
 	
