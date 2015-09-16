@@ -7,21 +7,22 @@ public class TextBuddyTest {
 	public void testSort(){
 		TextBuddy.clear();
 		//contents is empty.
-		assertEquals(0,TextBuddy.sortByAlpha());
+		TextBuddy.sortByAlpha();
+		TextBuddy.display();
 		
 		//adding into contents
 		TextBuddy.add(" aaa");
 		assertEquals("1. aaa",TextBuddy.display().get(0));
-		assertEquals(1,TextBuddy.sortByAlpha());
-	
+
 		//checking first item in list
+		TextBuddy.sortByAlpha();
 		assertEquals("1. aaa", TextBuddy.display().get(0));
 		
 		//changing contents
 		TextBuddy.clear();
 		TextBuddy.add(" bbb");
 		TextBuddy.add(" aaa");
-		assertEquals(1,TextBuddy.sortByAlpha());
+		TextBuddy.sortByAlpha();
 		assertEquals("1. aaa", TextBuddy.display().get(0));
 		assertEquals("2. bbb", TextBuddy.display().get(1));
 	}

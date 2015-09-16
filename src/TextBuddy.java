@@ -34,14 +34,14 @@ import java.io.*;
 public class TextBuddy{
 
 	private static String FILE_NAME = "";
-	
+
 	//List of possible messages
 	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %1$s is ready for use";
 	private static final String MESSAGE_ADD = "added to %1$s: \"%2$s\"";
 	private static final String MESSAGE_DELETED = "deleted from %1$s: \"%2$s\"";
 	private static final String MESSAGE_EMPTY = "%1$s is empty";
 	private static final String MESSAGE_CLEAR = "all content deleted from %1$s";
-	
+
 	//List of possible errors
 	private static final String ERROR_NO_COMMAND = "no such command";
 	private static final String ERROR_NO_SUCH_INDEX = "no such index";
@@ -49,6 +49,12 @@ public class TextBuddy{
 	private static final String ERROR_NO_MATCH = "no keywords input";
 	private static final String ERROR_NO_MATCH_FOUND = "no match";
 	private static final String ERROR_NO_STATEMENT = "no such statement";
+
+	//Possible commands types
+	enum COMMAND_TYPE{
+		COMMAND_ADD, COMMAND_DELETE, COMMAND_CLEAR, COMMAND_EXIT, COMMAND_DISPLAY,
+		COMMAND_INVALID, COMMAND_SEARCH, COMMAND_SORT
+	}
 
 	//This arraylist will be used to store data for the file
 	private static ArrayList<String> contents = new ArrayList<String>();
@@ -74,7 +80,7 @@ public class TextBuddy{
 		FILE_NAME= fileName.substring (1, fileName.length()-1);
 		System.out.println (String.format(MESSAGE_WELCOME, FILE_NAME ));
 	}
-	
+
 	/**
 	 * this operation creates a new file object input name
 	 * 
@@ -88,8 +94,8 @@ public class TextBuddy{
 		}
 		return file;
 	}
-	
-	
+
+
 	/**
 	 * This operation determines which command to run base on user input
 	 * 
@@ -100,27 +106,28 @@ public class TextBuddy{
 		System.out.print("command: ");
 
 		while (!sc.hasNext("exit")){
-			String command = sc.next();
+			COMMAND_TYPE command = checkCommandType(sc.next());
 			switch(command){
-				case "add":
+				case COMMAND_ADD:
 					add(sc.nextLine());
 					break; 
-				case "delete":
+				case COMMAND_DELETE:
 					delete(sc.nextInt());
 					break;
-				case "display":
+				case COMMAND_DISPLAY:
 					display();
 					break;
-				case "clear":
+				case COMMAND_CLEAR:
 					clear();
 					break;
-				case "search":
+				case COMMAND_SEARCH:
 					displaySearch(sc.nextLine());
 					break;
-				case "sort":
+				case COMMAND_SORT:
 					sortByAlpha();
 					break;
 				default:
+					sc.nextLine();
 					System.out.println(ERROR_NO_COMMAND);
 			}
 			System.out.print("command: ");
@@ -132,12 +139,40 @@ public class TextBuddy{
 		}
 		sc.close();
 	}
+	
+	/**
+	 * this operation determines which command type correspond to user input.
+	 * 
+	 * @param userInput entered by user
+	 * @return command type
+	 */
+	private static COMMAND_TYPE checkCommandType(String userInput) {
+		if (userInput == null) {
+			throw new Error("no inputs");
+		}
+		if (userInput.equals("add")) {
+			return COMMAND_TYPE.COMMAND_ADD;
+		} else if (userInput.equals("display")) {
+			return COMMAND_TYPE.COMMAND_DISPLAY;
+		} else if (userInput.equals("delete")) {
+			return COMMAND_TYPE.COMMAND_DELETE;
+		} else if (userInput.equals("clear")) {
+			return COMMAND_TYPE.COMMAND_CLEAR;
+		} else if (userInput.equals("exit")) {
+			return COMMAND_TYPE.COMMAND_EXIT;
+		} else if (userInput.equals("search")){
+			return COMMAND_TYPE.COMMAND_SEARCH;
+		} else if (userInput.equals("sort")){
+			return COMMAND_TYPE.COMMAND_SORT;
+		} else {
+			return COMMAND_TYPE.COMMAND_INVALID;
+		}
+	}
 
 	/**
 	 * this operation adds the string into an array list
 	 * 
 	 * @param statement to be added in
-	 * @return returns 1 is add is successful, else return 0
 	 */
 	public static void add(String statement) {
 		if (statement == ""){
@@ -149,7 +184,7 @@ public class TextBuddy{
 			System.out.println(String.format(MESSAGE_ADD, FILE_NAME, statement));
 		}
 	}
-	
+
 	/**
 	 * this operation deletes the statement corresponding to the given index.
 	 * If search function was used prior, it will delete the index from search list
@@ -166,16 +201,17 @@ public class TextBuddy{
 			deleteUsingIndex(num);
 		}
 	}
+	
 	/**
 	 * This operation returns the corresponding string from the searched list.
 	 * 
 	 * @param num index to be deleted
-	 * @return
+	 * @return String to be deleted
 	 */
 	public static String searchFromList(int num){
 		if (num>searchedContents.size()){
 			System.out.println(ERROR_NO_SEARCH_INDEX);
-			
+
 		} else {
 			String foundSearch = searchedContents.get(num-1);
 			searchedContents.clear();
@@ -183,21 +219,21 @@ public class TextBuddy{
 		}
 		return  null;
 	}
-	
+
 	/**
-	 * This operation delete from the main contents using a String object
+	 * This operation delete from the main contents
 	 * 
-	 * @param toDelete
+	 * @param toDelete String that is to be deleted
 	 */
 	public static void deleteUsingString(String toDelete){
 		System.out.println(String.format(MESSAGE_DELETED,FILE_NAME,toDelete));
 		contents.remove(toDelete);
 	}
-	
+
 	/**
 	 * This operation delete from the main contents using the index
 	 * 
-	 * @param num
+	 * @param num index to be removed
 	 */
 	public static void deleteUsingIndex(int num){
 		if (num>contents.size()||num<=0) {
@@ -220,12 +256,12 @@ public class TextBuddy{
 		}
 		return ans;
 	}
-	
+
 	public static void clear() {
 		contents.clear();
 		System.out.println(String.format(MESSAGE_CLEAR,FILE_NAME));
 	}
-	
+
 	/**
 	 * This operation saves the data into the file when user exits the program
 	 * 
@@ -241,25 +277,16 @@ public class TextBuddy{
 		bWriter.close();
 	}
 
-	/**
-	 * Sorts the current data in alphabetical
-	 * 
-	 * @return returns  1 if method is successful, else 0
-	 */
-	public static int sortByAlpha() {
+	public static void sortByAlpha() {
 		if (contents.isEmpty()) {
-			return 0;
+			return;
 		} else {
 			Collections.sort(contents);
-			return 1;
+			display();
 		}
 	}
+
 	
-	/**
-	 *this operation display the list of string matching the search input 
-	 * 
-	 * @param keywords input to be matched
-	 */
 	public static void displaySearch(String keywords){
 		if (keywords == null){
 			System.out.println(ERROR_NO_MATCH);
@@ -274,6 +301,7 @@ public class TextBuddy{
 			}
 		}
 	}
+	
 	/**
 	 * this operation search for keywords in the main content.
 	 * 
